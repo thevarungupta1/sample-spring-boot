@@ -15,12 +15,12 @@ pipeline {
             }
         }
         stage('sonarqube') {
-        agent {
-            docker { image '<some sonarcli image>' } }
-            steps {
-                sh 'echo scanning!'
+            agent {
+                docker { image '<some sonarcli image>' } }
+                steps {
+                    sh 'echo scanning!'
+                }
             }
-        }
         stage('docker build') {
             steps {
                 sh 'echo docker build'
@@ -36,5 +36,5 @@ pipeline {
                 sh 'echo deploy to kubernetes'               
             }
         }
-    }
+    
 }
