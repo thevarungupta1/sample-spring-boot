@@ -4,7 +4,7 @@ pipeline {
         ENV_DOCKER = credentials('dockerhub')
         DOCKERIMAGE = "dummy/dummy"
         EKS_CLUSTER_NAME = "demo-cluster"
-    }
+    
     stages {
         stage('build') {
             agent {
