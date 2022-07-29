@@ -1,10 +1,15 @@
-FROM openjdk:8u212-alpine
+#
+# Build stage
+#
+FROM maven:3.6.0-jdk-11-slim AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
 
-LABEL name "Springboot base image" 
-LABEL maintainer "Cognizant"
-LABEL version=1.0
-
-USER root
-
-COPY target/spring-boot-0.0.1-SNAPSHOT.jar spring-boot-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java", "-jar", "/spring-boot-0.0.1-SNAPSHOT.jar"]
+#
+# Package stage
+#
+FROM openjdk:11-jre-slim
+COPY --from=build /home/app/target/spring-boot-0.0.1-SNAPSHOT.jar /usr/local/lib/spring-boot-0.0.1-SNAPSHOT.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/usr/local/lib/spring-boot-0.0.1-SNAPSHOT.jar"]
