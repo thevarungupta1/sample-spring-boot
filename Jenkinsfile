@@ -23,6 +23,7 @@ pipeline {
         }
         stage('docker build') {
             steps {
+                sh 'mvn clean install'
                 sh 'docker build -t varungupta2809/myapp-test:latest .'
             }
         }
