@@ -14,6 +14,19 @@ pipeline {
                 sh 'chmod +x gradlew && ./gradlew build jacocoTestReport'
             }
         }
+        stage('Build Jar'){
+            agent {
+              docker {
+                image 'maven:3-alpine'
+                args '-v /root/.m2:/root/.m2'
+              }
+            }
+            steps {
+                sh 'mvn clean install'
+                stash includes: 'target/*.jar', name: 'spring-boot-0.0.1-SNAPSHOT'
+            }
+        }
+        
         stage('sonarqube') {
         agent {
             docker { image 'sonarqube' } }
