@@ -1,5 +1,9 @@
 pipeline {
     agent none
+    
+    environment {
+        DOCKERHUB_CREDENTIALS=credentials('docker-hub)
+    }
      
     stages {
         stage('build') {
@@ -19,12 +23,17 @@ pipeline {
         }
         stage('docker build') {
             steps {
-                sh 'echo docker build'
+                sh 'docker build -t varungupta2809/myapp-test:latest'
+            }
+        }
+        stage('docker login') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
         stage('docker push') {
             steps {
-                sh 'echo docker push!'
+               sh 'docker push varungupta2809/myapp-test:latest'
                 }
             }
         stage('Deploy App') {
