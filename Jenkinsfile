@@ -23,7 +23,7 @@ pipeline {
         }
         stage('docker build') {
             steps {
-                sh 'docker build -t varungupta2809/myapp-test:latest'
+                sh 'docker build -t varungupta2809/myapp-test:latest .'
             }
         }
         stage('docker login') {
