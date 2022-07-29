@@ -6,6 +6,5 @@ LABEL version=1.0
 
 USER root
 
-COPY build/libs/spring-boot.jar $APP_LOC/app.jar
-
-ENTRYPOINT ["java","-jar","app.jar"]
+COPY target/spring-boot-0.0.1-SNAPSHOT.jar spring-boot-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java", "-jar", "/spring-boot-0.0.1-SNAPSHOT.jar"]
