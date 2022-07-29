@@ -23,7 +23,7 @@ pipeline {
             }
             steps {
                 sh 'mvn clean install'
-                stash includes: 'target/*.jar', name: 'spring-boot-0.0.1-SNAPSHOT'
+                stash includes: 'target/*.jar', name: 'spring-boot-0.0.1-SNAPSHOT.jar'
             }
         }
         
